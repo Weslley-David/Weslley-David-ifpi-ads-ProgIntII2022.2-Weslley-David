@@ -1,12 +1,17 @@
 import express from 'express'
 import routes from './routes'
+import {LogMiddleware} from './middlewares/logMiddleware'
+import { verifyJWT } from './controllers/AuthController';
+
 require("dotenv").config();
 
 const app = express()
 
 app.use(express.json())
 
-app.get('/', (req, res)=>{
+app.use(LogMiddleware)
+
+app.get('/', verifyJWT, (req, res)=>{
     res.status(200).json({mensagem:'Pong!'})
 })
 

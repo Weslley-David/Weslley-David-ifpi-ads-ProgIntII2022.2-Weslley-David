@@ -1,31 +1,37 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 var db = require('../database/db')
 const User = require('../database/tables/user');
+const jwt = require('jsonwebtoken')
 var crypto = require('crypto');
+const secret = process.env.SECRET_JWT
 
+export function verifyJWT(req: Request, res: Response, next: NextFunction){
+    const token = req.headers['x-acess-token']
+    jwt.verify(token, secret, (err: Error, decoded: any) =>{
+        if(err) return res.status(401).end();
+
+        console.log(req)
+        req = decoded.id
+        next();
+    })
+}
 
 export class AuthController2{
     public signup = async (req: Request, res: Response) => {
         await db.sync();
         const {email, name, password} = req.body
         var hash = crypto.createHash('md5').update(password + "uwu").digest('hex');
-        //console.log(hash); // 9b74c9897bac770ffc029102a200c5de
         const foundUser = await User.findOne({
             where: {
                 email: email
             }
         })
-        /*const foundUser = await this.users.findOne<User>({
-            email
-        })*/
 
         if (foundUser){
-            return res.status(409).json({error: "Já existe um usuário com este email!"})
+            return res.status(409).json({error: "Email em uso."})
         }
     
         // save into db
-        /*const result = await this.users.insertOne(user)*/
-
         const result = await User.create({
             name: name,
             email: email,
@@ -44,18 +50,17 @@ export class AuthController2{
                 email: email
             }
         })
-        console.log(foundUser)
         if(foundUser == null){
-            return res.status(200).json("usuário não encontrado")
+            return res.status(400).json("usuário não encontrado")
         }
         if(foundUser.password != hash){
-            return res.status(200).json("senha incorreta")
+            return res.status(401).json("senha incorreta")
         }
-    
+        
+        const token = jwt.sign({"id": foundUser.id}, secret, {expiresIn: 900})
         return res.status(200).json({
-            "id": foundUser.id,
-            "email": foundUser.email,
-            "name": foundUser.name 
+            auth : true,
+            token
         })
     }
 }
