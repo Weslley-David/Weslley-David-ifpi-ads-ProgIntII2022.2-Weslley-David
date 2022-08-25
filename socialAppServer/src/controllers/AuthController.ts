@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from "express"
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 var db = require('../database/db')
 const User = require('../database/tables/user');
 const jwt = require('jsonwebtoken')
 var crypto = require('crypto');
 const secret = process.env.SECRET_JWT
+const salt = process.env.SALT
 
 export function verifyJWT(req: Request, res: Response, next: NextFunction){
     const token = req.headers['x-acess-token']
@@ -20,7 +22,7 @@ export class AuthController2{
     public signup = async (req: Request, res: Response) => {
         await db.sync();
         const {email, name, password} = req.body
-        var hash = crypto.createHash('md5').update(password + "uwu").digest('hex');
+        var hash = crypto.createHash('md5').update(password + salt).digest('hex');
         const foundUser = await User.findOne({
             where: {
                 email: email
@@ -38,13 +40,13 @@ export class AuthController2{
             password: hash
         })
     
-        return res.status(200).json(result)
+        return res.status(200).json({"signup": true })
     }
 
     public signin = async (req: Request, res: Response) => {
         await db.sync();
         const {email, password} = req.body
-        var hash = crypto.createHash('md5').update(password + "uwu").digest('hex');
+        var hash = crypto.createHash('md5').update(password + salt).digest('hex');
         const foundUser = await User.findOne({
             where: {
                 email: email
@@ -57,6 +59,8 @@ export class AuthController2{
             return res.status(401).json("senha incorreta")
         }
         
+
+        //gerando token após a authenticação
         const token = jwt.sign({"id": foundUser.id}, secret, {expiresIn: 900})
         return res.status(200).json({
             auth : true,

@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
-const router = Router()
+const feedRoutes = Router()
 
 const feed = 'feed'
 
-router.get('/feed', (req, res)=>{
+feedRoutes.get('/feed', (req, res)=>{
     res.json({feed})}
 )
 
-export default router
+export default feedRoutes

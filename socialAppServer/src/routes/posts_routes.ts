@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { AuthMiddleware } from '../middlewares/authMiddleware'
 
 const postRoutes = Router()
-const nome = 'Name_of_user'
+const nome = 'Rogerio'
 
 postRoutes.use(AuthMiddleware)
 
