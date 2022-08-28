@@ -9,9 +9,9 @@ const authController2 = new AuthController2();
 
 router.post('/signup', authController2.signup)
 
-router.post('/signin', AuthMiddleware, authController2.signin)
+router.post('/signin', authController2.signin)
 
-router.post('/reset-password', authController2.reset)
+router.post('/reset-password', AuthMiddleware, authController2.reset)
 
 router.post('/me', (req, res)=>{
     res.status(200).json({mensagem:"It's me!"})

@@ -2,8 +2,6 @@ import express from 'express'
 import routes from './routes'
 import {LogMiddleware} from './middlewares/logMiddleware'
 
-require("dotenv").config();
-
 const app = express()
 
 app.use(express.json())

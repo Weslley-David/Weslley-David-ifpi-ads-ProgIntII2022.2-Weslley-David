@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 var crypto = require('crypto');
 const User = require('../database/tables/user');
+const UserToken = require('../database/tables/userToken');
 var salt = process.env.SALT
 
 
@@ -38,9 +39,7 @@ export async function AuthMiddleware(request: Request, response: Response, next:
 
 
         if (authType === 'Bearer'){
-            // Validar o Token para liberar ou não a requisição
         }
-        console.log(auth)
         console.log(`\n\nAuth Middleware <(0-0)> -> ${authType}->${authValue}\n\n`)
         
         return next()

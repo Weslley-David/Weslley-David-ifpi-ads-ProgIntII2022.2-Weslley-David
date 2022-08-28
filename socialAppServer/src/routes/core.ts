@@ -1,10 +1,11 @@
 import { Router } from 'express'
+import { verifyJWT } from '../controllers/AuthController'
 
 const feedRoutes = Router()
 
 const feed = 'feed'
 
-feedRoutes.get('/feed', (req, res)=>{
+feedRoutes.get('/feed', verifyJWT, (req, res)=>{
     res.json({feed})}
 )
 
