@@ -67,4 +67,34 @@ export class AuthController2{
             token
         })
     }
+
+    public reset = async (req: Request, res: Response) => {
+        await db.sync();
+        const {email, password, newPassword} = req.body
+        var hash = crypto.createHash('md5').update(password + salt).digest('hex');
+        const foundUser = await User.findOne({
+            where: {
+                email: email
+            }
+        })
+        if(foundUser == null){
+            return res.status(400).json("usuário não encontrado")
+        }
+        if(foundUser.password != hash){
+            return res.status(401).json("senha incorreta")
+        }
+        var hash = crypto.createHash('md5').update(newPassword + salt).digest('hex');
+        foundUser.password = hash
+
+        await foundUser.save()
+
+        //gerando token após a authenticação
+        //const token = jwt.sign({"id": foundUser.id}, secret, {expiresIn: 900})
+        /*return res.status(200).json({
+            auth : true,
+            token
+        })*/
+
+        return res.status(201).json({"altered": "true"})
+    }
 }
