@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { searchByEmail } from "../functions/searchByEmail";
 var crypto = require('crypto');
 const User = require('../database/tables/user');
 const UserToken = require('../database/tables/userToken');
@@ -14,22 +15,15 @@ export async function AuthMiddleware(request: Request, response: Response, next:
         }
         const [authType, authValue] = auth.split(' ')
         if (authType === 'Basic'){
-            // decodificar user:senha
-            // veriicar no banco de dados se usuario e senha estao ok
-            // liberar o não a requisicão
-            // let data = 'c3RhY2thYnVzZS5jb20=';
             let buff = Buffer.from(authValue, 'base64');
             let [email, senha] = buff.toString('ascii').split(':');
-            console.log('...',email,'...', senha)
-            var hash = crypto.createHash('md5').update(senha + salt).digest('hex');
-            const foundUser = await User.findOne({
-                where: {
-                    email: email
-                }
-            })
+            
+            const foundUser = await searchByEmail(email)
             if(foundUser == null){
                 return response.status(400).json("usuário não encontrado")
             }
+
+            var hash = crypto.createHash('md5').update(senha + salt).digest('hex');
 
             if(foundUser.password != hash){
                 return response.status(401).json("senha incorreta")
@@ -39,8 +33,9 @@ export async function AuthMiddleware(request: Request, response: Response, next:
 
 
         if (authType === 'Bearer'){
+            
         }
-        console.log(`\n\nAuth Middleware <(0-0)> -> ${authType}->${authValue}\n\n`)
+        console.log(`\n\n Auth Middleware <(0-0)> -> ${authType}->${authValue}\n\n`)
         
         return next()
 }
