@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express"
-import { AuthMiddleware } from "../middlewares/authMiddleware";
 import { generateNewToken } from "./gerenareNewToken";
 var db = require('../database/db')
 const User = require('../database/tables/user');

@@ -1,7 +1,7 @@
 const SequelizeUserToken = require('sequelize');
-const database = require('../db');
+const database2 = require('../db');
 
-const Token = database.define('token', {
+const Token = database2.define('token', {
     id:{
         type: SequelizeUserToken.INTEGER,
         autoIncrement: true,
