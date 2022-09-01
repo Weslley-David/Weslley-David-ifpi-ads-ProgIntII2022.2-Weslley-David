@@ -1,4 +1,4 @@
-export const verifyNewPassword = (newPassword : string, oldpassword: string) =>{
+export const strongPasswordTester = (newPassword : string, oldpassword: string) =>{
     let loop: number = newPassword.length
     let maiusc: boolean = false
     let special: boolean = false

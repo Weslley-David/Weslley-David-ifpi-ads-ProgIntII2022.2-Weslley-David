@@ -8,13 +8,21 @@ export const Token = sequelize.define('token', {
         allowNull: false,
         primaryKey: true
     },
-    uid:{
-        type: SequelizeUserToken.INTEGER,
+    email:{
+        type: SequelizeUserToken.STRING,
         allowNull: false
     },
     refToken:{
         type: SequelizeUserToken.STRING,
         allowNull: false
+    },
+    aceToken:{
+        type: SequelizeUserToken.STRING,
+        allowNull: false
+    },
+    createdTime:{
+        type: SequelizeUserToken.STRING,
+        allowNull: false,
     }
 })
 
