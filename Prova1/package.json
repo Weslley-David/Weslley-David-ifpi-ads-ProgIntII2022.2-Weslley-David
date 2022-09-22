@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "ts-node-dev --clear src/main.ts"
+    "server": "ts-node-dev --clear src/server.ts"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {

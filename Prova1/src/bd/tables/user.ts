@@ -1,33 +1,35 @@
 const SequelizeUser = require('sequelize');
-import { sequelize } from "../db";
+import { dbconnection } from "../connection";
 
-const User = sequelize.define('user', {
-    id:{
+export const User = dbconnection.define('user', {
+    id: {
         type: SequelizeUser.INTEGER,
         autoIncrement: true,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
     },
-    name:{
+    uid: {
+        type: SequelizeUser.UUID,
+        defaultValue: SequelizeUser.UUIDV4
+    },
+    name: {
         type: SequelizeUser.STRING,
         allowNull: false
     },
-    email:{
+    email: {
         type: SequelizeUser.STRING,
         allowNull: false
     },
-    phone:{
+    phone: {
         type: SequelizeUser.STRING,
         allowNull: false
     },
-    password:{
+    password: {
         type: SequelizeUser.STRING,
         allowNull: false
     },
-    activated:{
+    activated: {
         type: SequelizeUser.BOOLEAN,
         allowNull: false
     }
 })
-
-module.exports = User

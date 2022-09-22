@@ -1,24 +1,26 @@
 const SequelizeUser = require('sequelize');
-import { sequelize } from "../db";
+import { dbconnection } from "../connection";
 
-export const activationcode = sequelize.define('activation', {
-    id:{
+export const Reading = dbconnection.define('reading', {
+    id: {
         type: SequelizeUser.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    datacriacao:{
-        type: SequelizeUser.DATE,
-        allowNull: false
-    },
-    email:{
+    title: {
         type: SequelizeUser.STRING,
         allowNull: false
-    }
-    
-    ,
-    code:{
+    },
+    email: {
+        type: SequelizeUser.STRING,
+        allowNull: false
+    },
+    atualpage: {
+        type: SequelizeUser.INTEGER,
+        allowNull: false
+    },
+    status: {
         type: SequelizeUser.STRING,
         allowNull: false
     }
