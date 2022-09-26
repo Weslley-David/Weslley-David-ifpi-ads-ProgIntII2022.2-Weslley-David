@@ -7,7 +7,7 @@ function App() {
   const [bmi, setBmi] = useState()
 
   const calculateBmi = () => {
-    let bmi = Number(weight) / (Number(height) * 2)
+    let bmi = Number(weight) / (Number(height) * Number(height))
     setBmi(`${name}, your bmi is:\n ${bmi.toFixed(2)}`)
   }
   return (

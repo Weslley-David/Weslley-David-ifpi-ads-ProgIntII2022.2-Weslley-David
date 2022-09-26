@@ -5,7 +5,7 @@
   let answer: string = "";
 
   const calculateBmi = () => {
-    let bmi: number = weight / (height * 2);
+    let bmi: number = weight / (height * height);
     answer = `${name}, seu bmi é ${bmi.toFixed(2)}`;
   };
 </script>
