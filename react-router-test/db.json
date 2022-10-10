@@ -1,0 +1,51 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Magnus Carsen",
+      "rating": 3000
+    },
+    {
+      "id": 2,
+      "name": "Fabiano Caruana",
+      "rating": 2900
+    },
+    {
+      "id": 3,
+      "name": "Hiraku Nakamura",
+      "rating": 2800
+    },
+    {
+      "id": 4,
+      "name": "Garry Casparov",
+      "rating": 3000
+    }
+  ],
+  "countries": [
+    {
+      "id": 1,
+      "name": "Rússia",
+      "ranking": 1
+    },
+    {
+      "id": 2,
+      "name": "U.S.A",
+      "ranking": 2
+    },
+    {
+      "id": 3,
+      "name": "Alemanha",
+      "ranking": 3
+    },
+    {
+      "id": 4,
+      "name": "Ucrânia",
+      "ranking": 4
+    },
+    {
+      "id": 5,
+      "name": "Sérvia",
+      "ranking": 5
+    }
+  ]
+}

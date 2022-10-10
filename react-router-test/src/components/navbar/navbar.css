@@ -1,0 +1,10 @@
+.links{
+   background-color: none;
+}
+
+.links ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 1rem;
+}
